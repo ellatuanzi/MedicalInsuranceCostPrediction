@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 import shap
 import matplotlib.pyplot as plt
-import google.generativeai as genai
+from google import genai
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 import os
 
@@ -106,9 +106,8 @@ def get_gemini_explanation(feature_impacts, prediction, api_key, sample_data):
         return None, "Please configure your Gemini API key in the sidebar to get AI-powered explanations."
     
     try:
-        # Configure API with explicit v1 endpoint
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-flash-latest')
+        # Use new Google GenAI SDK
+        client = genai.Client(api_key=api_key)
         
         # Create prompt with feature impacts and sample data
         prompt = f"""
@@ -138,7 +137,10 @@ Please provide a comprehensive analysis with:
 Keep the tone professional but accessible. Use analogies where helpful. Format using markdown with clear headers and bullet points.
 """
         
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-2.0-flash-exp", 
+            contents=prompt
+        )
         
         # Generate highlights separately
         highlights_prompt = f"""
@@ -154,7 +156,10 @@ Format each highlight as:
 Focus on actionable insights, risk factors, and surprising findings.
 """
         
-        highlights_response = model.generate_content(highlights_prompt)
+        highlights_response = client.models.generate_content(
+            model="gemini-2.0-flash-exp",
+            contents=highlights_prompt
+        )
         
         return highlights_response.text, response.text
     except Exception as e:
