@@ -106,7 +106,9 @@ def get_gemini_explanation(feature_impacts, prediction, api_key, sample_data):
         return None, "Please configure your Gemini API key in the sidebar to get AI-powered explanations."
     
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        # Configure API with explicit v1 endpoint
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-1.5-flash-latest')
         
         # Create prompt with feature impacts and sample data
         prompt = f"""
