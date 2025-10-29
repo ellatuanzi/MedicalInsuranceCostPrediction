@@ -263,39 +263,14 @@ This project includes comprehensive fairness analysis tools to ensure responsibl
 - Consider the societal impact of automated decisions
 - Use fairness metrics alongside performance metrics
 
-## ⚠️ Limitations
-
-### Model Limitations
-- **Generalization**: Model trained on specific Kaggle dataset may not generalize to all insurance populations
-- **Feature Dependencies**: Performance depends on availability of all 12 input features
-- **Temporal Validity**: Model may require retraining as healthcare costs and patterns evolve over time
-- **Missing Data**: 30% of original data contains missing values, which may introduce bias
-
-### Fairness Limitations
-- **Protected Attributes**: Not all potential sources of bias may be captured in the fairness analysis
-- **Intersectionality**: Single-attribute fairness analysis doesn't capture compound discrimination effects
-- **Correlation**: Some features may be proxies for protected attributes (e.g., zip code as proxy for race)
-- **Ground Truth**: Fairness metrics assume historical claims data is unbiased
-
-### Technical Limitations
-- **Interpretability Trade-off**: SHAP explanations are approximations and may not capture all model behavior
-- **API Dependency**: AI insights require external Gemini API with rate limits and costs
-- **Computational Cost**: Real-time SHAP calculations may be slow for large-scale deployments
-- **Single Model**: Only LightGBM is deployed; ensemble approaches might improve robustness
 
 ## 🔮 Future Work
 
 ### Model Improvements
-- **Ensemble Methods**: Combine multiple algorithms (XGBoost, CatBoost, Neural Networks) for better predictions
 - **Hyperparameter Optimization**: Systematic tuning using Optuna or similar frameworks
-- **Feature Engineering**: Create interaction terms and polynomial features for complex relationships
-- **Time Series Components**: Incorporate temporal trends in healthcare costs
-- **Uncertainty Quantification**: Add prediction intervals using conformal prediction or quantile regression
 
 ### Fairness Enhancements
 - **Intersectional Fairness**: Analyze fairness across multiple protected attributes simultaneously
-- **Bias Mitigation**: Implement pre-processing, in-processing, or post-processing debiasing techniques
-- **Causal Analysis**: Use causal inference to identify and remove discriminatory pathways
 - **Counterfactual Explanations**: Generate "what-if" scenarios for fairer predictions
 - **Continuous Monitoring**: Set up automated fairness drift detection in production
 
