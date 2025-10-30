@@ -3,24 +3,16 @@ services:
     name: insurance-prediction-app
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run app.py --server.port=$PORT --server.address=0.0.0.0
+    startCommand: "./start_main_app.sh"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.12.0
-      - key: STREAMLIT_SERVER_HEADLESS
-        value: true
-      - key: STREAMLIT_SERVER_ENABLE_CORS
-        value: false
+        value: "3.12.0"
     
   - type: web
     name: fairness-analysis-app
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run fairness_app.py --server.port=$PORT --server.address=0.0.0.0
+    startCommand: "./start_fairness_app.sh"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.12.0
-      - key: STREAMLIT_SERVER_HEADLESS
-        value: true
-      - key: STREAMLIT_SERVER_ENABLE_CORS
-        value: false
+        value: "3.12.0"
