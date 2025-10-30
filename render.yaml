@@ -16,3 +16,12 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: "3.12.0"
+  
+  - type: web
+    name: data-monitoring-app
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: "./start_monitoring_app.sh"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.0"
