@@ -6,7 +6,13 @@ A machine learning project for predicting medical insurance claims with interpre
 
 This project uses a **Kaggle medical insurance dataset** to predict **total_claims_paid** for patients based on demographics, health metrics, and claims history. The project includes:
 
-- **LightGBM model** with 12 selected features
+- **Comprehensive Model Comparison:** GLM (Tweedie Distribution) vs. LightGBM evaluated using multiple metrics:
+  - **Gini Coefficient** for ranking performance (ability to rank-order patients by risk)
+  - **Lift Charts** showing predictive power across risk deciles
+  - **RMSE & MAE** for prediction accuracy
+  - **Statistical significance testing** via bootstrap analysis
+  - **Result:** LightGBM achieves **76% RMSE improvement** with **slightly better Gini coefficient** for ranking discrimination
+- **LightGBM model** with 12 selected features optimized for insurance claims prediction
 - **Interactive Streamlit apps** for predictions, interpretability, fairness analysis, and monitoring
 - **SHAP explanations** for model transparency
 - **AI-powered insights** via Google's Gemini API
