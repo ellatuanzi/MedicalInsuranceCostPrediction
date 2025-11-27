@@ -1,23 +1,23 @@
-# Medical Insurance Claims Prediction
+# Insurance Loss Prediction: GBM vs GLM
 
-A machine learning project for predicting medical insurance claims with interpretable AI and fairness analysis.
+This project compares **GBM models (XGBoost/LightGBM)** vs **GLM** for insurance severity prediction using public datasets.  
+It demonstrates that ML models can reduce **prediction error** even when the Gini lift remains similar.
 
-## 📋 Overview
+---
 
-This project uses a **Kaggle medical insurance dataset** to predict **total_claims_paid** for patients based on demographics, health metrics, and claims history. The project includes:
+## 🎯 Key Objectives
+- Compare GLM vs GBM performance for loss modeling  
+- Evaluate error distribution, calibration, and model stability  
+- Use SHAP to understand nonlinear patterns missed by GLM  
+- Provide a reproducible, end-to-end pipeline
 
-- **Comprehensive Model Comparison:** GLM (Tweedie Distribution) vs. LightGBM evaluated using multiple metrics:
-  - **Gini Coefficient** for ranking performance (ability to rank-order patients by risk)
-  - **Lift Charts** showing predictive power across risk deciles
-  - **RMSE & MAE** for prediction accuracy
-  - **Statistical significance testing** via bootstrap analysis
-  - **Result:** LightGBM achieves **76% RMSE improvement** with **slightly better Gini coefficient** for ranking discrimination
-- **LightGBM model** with 12 selected features optimized for insurance claims prediction
-- **Interactive Streamlit apps** for predictions, interpretability, fairness analysis, and monitoring
-- **SHAP explanations** for model transparency
-- **AI-powered insights** via Google's Gemini API
-- **Fairness analysis** across demographic groups
-- **CI/CD monitoring dashboard** for data drift detection and model performance tracking
+---
+
+## 📊 Main Findings
+- ML improves **prediction error** even with small Gini gain  
+- GBM captures nonlinear effects GLM cannot  
+- Calibration significantly improves distribution alignment  
+- SHAP explains feature contributions and tail behavior
 
 ## 📊 Dataset Description
 
@@ -28,80 +28,6 @@ This project uses a **Kaggle medical insurance dataset** to predict **total_clai
 **Target Variable:** `total_claims_paid` (continuous, amount paid in insurance claims)
 
 **Missing Data:** 30,083 missing values across various features (handled during preprocessing)
-
-### Key Features (54 total):
-
-**Demographics:**
-- `age`, `sex`, `region`, `urban_rural`, `education`, `marital_status`, `employment_status`
-- `household_size`, `dependents`, `income`
-
-**Health Metrics:**
-- `bmi`, `systolic_bp`, `diastolic_bp`, `ldl`, `hba1c`
-- `smoker`, `alcohol_freq`
-
-**Medical History:**
-- `visits_last_year`, `hospitalizations_last_3yrs`, `days_hospitalized_last_3yrs`
-- `medication_count`, `chronic_count`
-- Binary indicators: `hypertension`, `diabetes`, `asthma`, `copd`, `cardiovascular_disease`, 
-  `cancer_history`, `kidney_disease`, `liver_disease`, `arthritis`, `mental_health`
-
-**Insurance Details:**
-- `plan_type`, `network_tier`, `deductible`, `copay`, `policy_term_years`
-- `policy_changes_last_2yrs`, `provider_quality`, `risk_score`
-
-**Medical Procedures:**
-- `proc_imaging_count`, `proc_surgery_count`, `proc_physio_count`, `proc_consult_count`, `proc_lab_count`
-- `is_high_risk`, `had_major_procedure`
-
-**Data Types:**
-- Integer (31 features)
-- Float (13 features)  
-- Categorical (10 features)
-
-## 🎯 Model Performance
-
-### Training Configuration
-- **Training Set:** 80,000 samples (80%)
-- **Test/Validation Set:** 20,000 samples (20%)
-- **Feature Selection:** Top 12 features selected via Random Forest importance
-
-### Final Model Metrics (LightGBM)
-
-**Test Set Performance:**
-- **RMSE:** $1,905.67
-- **MAE:** $1,027.30
-
-**Training Set Performance:**
-- **RMSE:** $1,930.50 (at best iteration)
-
-**Model Characteristics:**
-- **Best Iteration:** 95 (out of 100 max iterations)
-- **Early Stopping:** Applied with patience of 10 rounds
-- **Low Overfitting:** Training RMSE ($1,930.50) ≈ Validation RMSE ($1,905.67)
-
-### Baseline Comparison (GLM with Tweedie Distribution)
-
-**GLM Performance:**
-- **RMSE:** $7,937.49
-- **MAE:** $1,279.41
-
-**Improvement:** LightGBM achieves **76% reduction in RMSE** compared to GLM baseline
-
-### Selected Features (12 Final Features)
-
-The model uses these 12 features ranked by importance:
-1. `visits_last_year` - Number of medical visits
-2. `chronic_count` - Count of chronic conditions
-3. `ldl` - LDL cholesterol level
-4. `income` - Annual income
-5. `hba1c` - Blood sugar control metric
-6. `bmi` - Body Mass Index
-7. `provider_quality` - Healthcare provider rating
-8. `systolic_bp` - Systolic blood pressure
-9. `diastolic_bp` - Diastolic blood pressure
-10. `risk_score` - Calculated risk assessment
-11. `days_hospitalized_last_3yrs` - Recent hospitalization days
-12. `policy_term_years` - Insurance policy duration
 
 ## �🖼️ Screenshots
 
@@ -318,67 +244,3 @@ For AI-powered insights in the main app:
 - **Real-time Predictions**: Instant results
 - **Export Capabilities**: Download fairness reports
 - **Visual Analytics**: Comprehensive charts and plots
-
-## 📝 Notes
-
-- Model and data files must be in the same directory as the apps
-- SHAP calculations may take a few seconds
-- Gemini API requires internet connection
-- Keep API keys secure and never commit them to version control
-- Fairness analysis works with or without ground truth labels
-
-## 🛠️ Development
-
-The project workflow:
-1. **Data exploration** in Jupyter notebook
-2. **Feature engineering** and selection
-3. **Model training** with LightGBM
-4. **Model export** to pickle file
-5. **App development** for deployment
-6. **Fairness evaluation** across groups
-
-## 📚 Resources
-
-- [LightGBM Documentation](https://lightgbm.readthedocs.io/)
-- [SHAP Library](https://shap.readthedocs.io/)
-- [Streamlit Documentation](https://docs.streamlit.io/)
-- [Google Gemini API](https://ai.google.dev/)
-
-## ⚖️ Fairness & Ethics
-
-This project includes comprehensive fairness analysis tools to ensure responsible AI deployment. Always:
-- Review predictions for potential bias
-- Validate fairness across protected groups
-- Consider the societal impact of automated decisions
-- Use fairness metrics alongside performance metrics
-
-
-## 🔮 Future Work
-
-### Model Improvements
-- **Hyperparameter Optimization**: Systematic tuning using Optuna or similar frameworks
-- **Ensemble Methods**: Combine multiple models for improved accuracy
-- **Feature Engineering**: Advanced feature creation and selection techniques
-
-### Fairness Enhancements
-- **Intersectional Fairness**: Analyze fairness across multiple protected attributes simultaneously
-- **Counterfactual Explanations**: Generate "what-if" scenarios for fairer predictions
-- **Continuous Monitoring**: Set up automated fairness drift detection in production
-
-### Application Features
-- **Real-time Predictions**: API deployment for production use
-- **Advanced Visualizations**: Interactive 3D plots and animated charts
-- **Multi-language Support**: Internationalization for global deployment
-- **Mobile Optimization**: Responsive design for mobile devices
-
-### Data & Infrastructure
-- **Automated Data Pipeline**: Scheduled data refresh and validation
-- **Cloud Deployment**: AWS/Azure/GCP integration with auto-scaling
-- **Database Integration**: PostgreSQL/MongoDB for data persistence
-- **A/B Testing Framework**: Systematic model comparison and rollout
-
-### Research Extensions
-- **Causal Inference**: Identify causal relationships in insurance claims
-- **Time Series Analysis**: Predict claims trends over time
-- **Anomaly Detection**: Identify unusual claim patterns and potential fraud
-- **Personalized Recommendations**: Health and policy recommendations for individuals
