@@ -1,7 +1,7 @@
 # Insurance Loss Prediction: GBM vs GLM
 
 This project compares **GBM models (XGBoost/LightGBM)** vs **GLM** for insurance severity prediction using public datasets.  
-It demonstrates that ML models can reduce **prediction error** even when the Gini lift remains similar.
+It demonstrates that ML models can reduce **prediction error**  with small the Gini gain.
 
 ---
 
